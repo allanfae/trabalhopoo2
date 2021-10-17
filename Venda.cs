@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 public class Venda
 {
+	//Gets e Sets
 	public double Valor{get; set;}
 
 	public float Desconto{get; set;}
