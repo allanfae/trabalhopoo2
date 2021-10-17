@@ -2,8 +2,8 @@
 
 Trabalho de Programação Orientada a Objetos II <br>
 Integrantes: <br>
-Márcio Pinheiro Mendes <br>
 Allan Bruno Faé <br>
+Marcio Pinheiro Mendes <br>
 Rafael Antunes Costa
 
 Nosso trabalho consistiu em fazer uma loja com: <br>
