@@ -11,4 +11,5 @@ Estoque de produtos atravéz de cadastro por ID com acrescimo e decrescimo de it
 Cadastro de clientes, <br>
 Cadastro de vendedores, <br>
 Aplicação de desconto, <br>
-Adição de frete para os produtos que fossem sair para delivery e impressao do relatório de vendas. 
+Adição de frete para os produtos que fossem sair para delivery, <br>
+Impressao do relatório de vendas.  
