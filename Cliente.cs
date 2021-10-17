@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Cliente
 {
     //Gets e Sets
-	public Endereco Endereco{get; set;} //Pega o Endereço de outro contrutor, encapsula e coloca aquim para dividir melhor a aplicação 
+	public string Endereco{get; set;}
 
 	public string Nome{get; set;}
 
@@ -15,7 +15,7 @@ public class Cliente
 
 	public string DataNascimento{get; set;}
 
-    public Cliente(string nome, string cpf, string email, string dataNascimento, Endereco endereco) //Construtor de Cliente
+    public Cliente(string nome, string cpf, string email, string dataNascimento, string endereco) //Construtor de Cliente
     {
         Nome = nome;
         Cpf = cpf;
