@@ -6,23 +6,21 @@ public class Estoque
 	public Dictionary<int, int> estoqueProdutos;
 
 	
-    public Estoque()//Construtor, quando instancia um objeto estoque já cria o dicionário
+    public Estoque()//construtor, quando instancia um objeto estoque já cria o dicionário
     {
-        estoqueProdutos = new Dictionary<int, int>(); //A chave é o código do produto, o valor é a quantidade em estoque
+        estoqueProdutos = new Dictionary<int, int>(); //a chave é o código do produto, o valor é a quantidade em estoque
     }
 
-	public void CadastrarProduto(Produto prod, int qtdInicial) //Adiciona quantidade inicial do produto ao seu respectivo ID
+	public void CadastrarProduto(Produto prod, int qtdInicial)
     {
         estoqueProdutos.Add(prod.Id, qtdInicial);
     }
-    public void DarBaixaDeProduto(Produto prod) //Remove 1 quantidade do produto ao seu respectivo ID quando o produto for vendido
+    public void DarBaixaDeProduto(Produto prod)
     {
         estoqueProdutos[prod.Id]--;
     }
-
-    public void exibeQtd(Produto prod)//Exibir quantidade do produto X no estoque Y
+    public void exibeQtd(Produto prod)//exibir qtd do produto X no estoque Y
     {
         Console.WriteLine($"O estoque atual é de {estoqueProdutos[prod.Id]}");
     }
 }
- 

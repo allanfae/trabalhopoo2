@@ -1,107 +1,168 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.IO;
 
-/*Para os testes vamos cadastrar 3 objetos de cada classe, na seguinte ordem:
-Endereço->Cliente->Vendedor->Estoque->Loja->Produto->Venda->Delivery->Retirada->Carrinho*/
 class Program
 {
     static void Main(string[] args)
     {
+        //DECLARAÇÃO DAS VARIÁVEIS GLOBAIS
         Relatorio relatorio = new Relatorio();
-        Endereco end1 = new Endereco("Rua A", 1, "11111-111", "ABC", "Apt 111");
-        Endereco end2 = new Endereco("Rua B", 2, "22222-222", "BCD", "Apt 222");
-        Endereco end3 = new Endereco("Rua C", 3, "33333-333", "CDE", "Apt 333");
-
-        Cliente cli1 = new Cliente("Marcio", "123123123-123", "mp@xyz.com", "19/12/1991", end1);
-        Cliente cli2 = new Cliente("Rafael", "231231231-231", "rc@xyz.com", "01/12/1991", end2);
-        Cliente cli3 = new Cliente("Allan", "321321321-321", "af@xyz.com", "10/12/1991", end3);
-
-        Vendedor vendedor1 = new Vendedor("Joao", 001);
-        Vendedor vendedor2 = new Vendedor("Jose", 002);
-        Vendedor vendedor3 = new Vendedor("Juca", 003);
-
-        Produto produto1 = new Produto("bic", "caneta", 1, 5);
-        Produto produto2 = new Produto("faber", "lapis", 2, 1.5);
-        Produto produto3 = new Produto("mercur", "borracha", 3, 2);
-
-        Estoque estoque1 = new Estoque();
-        estoque1.CadastrarProduto(produto1,100);
-        estoque1.CadastrarProduto(produto2,100);
-        Estoque estoque2 = new Estoque();
-        estoque2.CadastrarProduto(produto3,100);
-        Estoque estoque3 = new Estoque();
-        estoque3.CadastrarProduto(produto1,100);
-        estoque3.CadastrarProduto(produto2,100);
-        estoque3.CadastrarProduto(produto3,100);
-
-        Loja loja1 = new Loja(1, estoque1);
-        loja1.cadastrarVendedores(vendedor1);
-        Loja loja2 = new Loja(2, estoque2);
-        loja2.cadastrarVendedores(vendedor2);
-        Loja loja3 = new Loja(3, estoque3);
-        loja3.cadastrarVendedores(vendedor3);
-        
-        Venda venda1 = new Venda(vendedor1, cli1, loja1);
-        try
-        {
-            venda1.insereProduto(produto1);
-            venda1.Loja.EstoqueLoja.DarBaixaDeProduto(produto1);
-            venda1.insereProduto(produto1);
-            venda1.Loja.EstoqueLoja.DarBaixaDeProduto(produto1);
-            venda1.insereProduto(produto1);
-            venda1.Loja.EstoqueLoja.DarBaixaDeProduto(produto1);
-            venda1.insereProduto(produto2);
-            venda1.Loja.EstoqueLoja.DarBaixaDeProduto(produto2);
-            venda1.calculaValor();
-            relatorio.insereVenda(venda1);
-        }
-        catch
-        {
-            Console.WriteLine("Quantidade insuficiente em estoque. Venda cancelada.");
-        }
-         
-        Venda venda2 = new Venda(vendedor2, cli2, loja2);
-        try
-        {
-            venda2.insereProduto(produto3);
-            venda2.Loja.EstoqueLoja.DarBaixaDeProduto(produto3);
-            venda2.insereProduto(produto3);
-            venda2.Loja.EstoqueLoja.DarBaixaDeProduto(produto3);
-            venda2.calculaValor();
-            relatorio.insereVenda(venda2);
-        }
-        catch
-        {
-            Console.WriteLine("Quantidade insuficiente em estoque. Venda cancelada.");
-        }
-        
-        Venda venda3 = new Venda(vendedor3, cli3, loja3);
-        try
-        {
-            venda3.insereProduto(produto1);
-            venda3.Loja.EstoqueLoja.DarBaixaDeProduto(produto1);
-            venda3.calculaValor();
-            relatorio.insereVenda(venda3);
-        }
-        catch
-        {
-            Console.WriteLine("Quantidade insuficiente em estoque. Venda cancelada.");
-        }
-        
+        Dictionary<string, Cliente> listaClientes = new Dictionary<string, Cliente>();
+        int contaClientes = 1;
+        Dictionary<int, Vendedor> listaVendedores = new Dictionary<int, Vendedor>();
+        int contaVendedores = 1;
+        Dictionary<int, Produto> listaProdutos = new Dictionary<int, Produto>();
+        int contaProdutos = 1;
+        Dictionary<int, Estoque> listaEstoques = new Dictionary<int, Estoque>();
+        int contaEstoques = 1;
+        Dictionary<int, Loja> listaLojas = new Dictionary<int, Loja>();
+        int contaLojas = 1;
+        Dictionary<int, Venda> listaVendas = new Dictionary<int, Venda>();
+        int contaVendas = 1;
         Ientrega delivery = new Delivery();
         Ientrega retirada = new Retirada();
-        Iarquivo excel = new RelatorioExcel();
-        excel.gerarRelatorio(relatorio);
-    
-        Carrinho carrinho1 = new Carrinho(delivery,venda1);
-        Console.WriteLine($"O valor do pedido é {carrinho1.Total}");
-        Carrinho carrinho2 = new Carrinho(delivery,venda2);
-        Console.WriteLine($"O valor do pedido é {carrinho2.Total}");        
-        Carrinho carrinho3 = new Carrinho(retirada,venda3);
-        Console.WriteLine($"O valor do pedido é {carrinho3.Total}");
+        Iarquivo arquivoVendas = new RelatorioExcel();
 
-
+        while(true)
+        {
+            //MENU DA INTERFACE
+            Console.WriteLine("Bem vindo ao programa. Selecione uma opção conforme menu abaixo:");
+            Console.WriteLine("1: Cadastrar cliente");
+            Console.WriteLine("2: Cadastrar vendedor");
+            Console.WriteLine("3: Cadastrar produto");
+            Console.WriteLine("4: Cadastrar estoque");
+            Console.WriteLine("5: Cadastrar loja");
+            Console.WriteLine("6: Cadastrar venda");
+            Console.WriteLine("7: Finalizar pedido");
+            Console.WriteLine("8: Baixar relatório de vendas");
+            Console.WriteLine("0: Sair");
+            int opcao = Convert.ToInt32(Console.ReadLine());
+            if (opcao == 1)//CADASTRO DE CLIENTES
+            {
+                Console.WriteLine("Insira o nome do cliente:");
+                string nomeCliente = Console.ReadLine();
+                Console.WriteLine("Insira o cpf do cliente:");
+                string cpf = Console.ReadLine();
+                Console.WriteLine("Insira o email do cliente:");
+                string email = Console.ReadLine();
+                Console.WriteLine("Insira a data de nascimento do cliente:");
+                string data = Console.ReadLine();
+                Console.WriteLine("Insira o enredeço do cliente:");
+                string endereco = Console.ReadLine();
+                Cliente cliente = new Cliente(nomeCliente, cpf, email, data, endereco);
+                listaClientes.Add(email, cliente);
+                contaClientes++;
+            }
+            if (opcao == 2)//CADASTRO DE VENDEDORES
+            {
+                Console.WriteLine("Insira o nome do vendedor:");
+                string nomeVendedor = Console.ReadLine();
+                Vendedor vendedor = new Vendedor(nomeVendedor, contaVendedores);
+                listaVendedores.Add(contaVendedores, vendedor);
+                contaVendedores++;
+            }
+            if (opcao == 3)//CADASTRO DE PRODUTOS
+            {
+                Console.WriteLine("Insira a marca do produto:");
+                string marca = Console.ReadLine();
+                Console.WriteLine("Insira o modelo do produto:");
+                string modelo = Console.ReadLine();
+                Console.WriteLine("Insira o preço do produto:");
+                double precoProduto = Convert.ToDouble(Console.ReadLine());
+                Produto produto = new Produto(marca, modelo, contaProdutos, precoProduto);
+                listaProdutos.Add(contaProdutos, produto);
+                contaProdutos++;
+            }
+            if (opcao == 4)//CADASTRO DE ESTOQUES, COM A INSERÇÃO DOS PRODUTOS QUE ELE CONTÉM
+            {
+                Estoque novoEstoque = new Estoque();
+                Console.WriteLine("Deseja cadastrar produtos neste estoque? (S/N)");
+                string escolha = Console.ReadLine();
+                if(escolha == "S" || escolha == "s")
+                {
+                    Console.WriteLine("Qual o id do produto: ");
+                    int idProduto = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Qual a quantidade inicial: ");
+                    int qtd = Convert.ToInt32(Console.ReadLine());
+                    novoEstoque.CadastrarProduto(listaProdutos[idProduto],qtd);
+                }
+                listaEstoques.Add(contaEstoques, novoEstoque);
+                contaEstoques++;
+            }
+            if (opcao == 5)//CADASTRO DA LOJA, INDICANDO QUAL É O ESTOQUE DELA E QUEM TRABALHA NA LOJA
+            {
+                Console.WriteLine("Qual o id do estoque que pertence a essa loja?");
+                int idEstoque = Convert.ToInt32(Console.ReadLine());
+                Loja novaLoja = new Loja(contaLojas, listaEstoques[idEstoque]);
+                while(true)
+                {
+                    Console.WriteLine("Qual a matrícula do vendedor que trabalha nessa loja?");
+                    int matricula = Convert.ToInt32(Console.ReadLine());
+                    novaLoja.cadastrarVendedores(listaVendedores[matricula]);
+                    Console.WriteLine("Essa loja tem mais algum vendedor? (S/N)");
+                    string insereVendedor = Console.ReadLine();
+                    if(insereVendedor != "S" || insereVendedor != "s")
+                        break;
+                }
+                listaLojas.Add(contaLojas, novaLoja);
+                contaLojas++;
+            }
+            if (opcao == 6)//CADASTRO DOS ITENS DA VENDA
+            {
+                Console.WriteLine("Qual a matrícula do vendedor que efetuou a venda?");
+                int matricula = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Qual o email do cliente?");
+                string email = Console.ReadLine();
+                Console.WriteLine("Qual o código da loja em que foi feita a venda?");
+                int codigo = Convert.ToInt32(Console.ReadLine());
+                Venda novaVenda = new Venda(listaVendedores[matricula], listaClientes[email], listaLojas[codigo], contaVendas);
+                try
+                {
+                    while(true)
+                    {
+                        Console.WriteLine("Qual o código do produto que está sendo vendido?");
+                        int cod = Convert.ToInt32(Console.ReadLine());
+                        novaVenda.insereProduto(listaProdutos[cod]);
+                        listaLojas[codigo].EstoqueLoja.DarBaixaDeProduto(listaProdutos[cod]);
+                        Console.WriteLine("Adicionar mais itens na venda? (S/N)");
+                        string addProduto = Console.ReadLine();
+                        if(addProduto != "S" || addProduto != "s")
+                            break;
+                    }
+                    novaVenda.calculaValor();
+                    relatorio.insereVenda(novaVenda);
+                    listaVendas.Add(contaVendas, novaVenda);
+                    contaVendas++;
+                }
+                catch
+                {
+                    Console.WriteLine("Quantidade insuficiente em estoque. Venda cancelada.");
+                }
+            }
+            if (opcao == 7)//FINALIZAÇÃO DA VENDA, COM A ESCOLHA DA OPÇÃO DE RETIRADA
+            {
+                Console.WriteLine("Qual é o id da venda: ");
+                int id = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Qual é a opção de retirada do pedido: ");
+                Console.WriteLine("1: delivery");
+                Console.WriteLine("2: retirada na loja");
+                int opRetirada = Convert.ToInt32(Console.ReadLine());
+                if(opRetirada == 1)
+                {
+                    Console.WriteLine("A opção escolhida foi delivery. Trabalhamos com taxa fixa de R$19,90");
+                    Carrinho carrinho = new Carrinho(delivery, listaVendas[id]);
+                }
+                if(opRetirada == 2)
+                {
+                    Carrinho carrinho = new Carrinho(retirada, listaVendas[id]);
+                }
+            }
+            if (opcao == 8)//BAIXAR RELATORIO.TXT
+            {
+                arquivoVendas.gerarRelatorio(relatorio);
+            }
+            if (opcao == 0)
+                break;
+        }
     }
 }

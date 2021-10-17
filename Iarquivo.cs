@@ -8,4 +8,3 @@ public interface Iarquivo
 	void printarRelatorio(Relatorio relatorio);
 
 }
-

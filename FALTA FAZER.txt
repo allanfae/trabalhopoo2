@@ -1,5 +1,0 @@
-documentar o código
-github
-vídeo
-diagrama de classe
-revisar pra ver se não faltou nada essencial

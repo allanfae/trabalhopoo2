@@ -3,12 +3,11 @@ using System.Linq;
 using System.Collections;
 public class Vendedor
 {
-    //Gets e Sets
 	public string Nome{get; set;}
 
 	public int Matricula{get; set;}
 
-    public Vendedor(string nome, int matricula)// Construtor Vendedor
+    public Vendedor(string nome, int matricula)
     {
         Nome = nome;
         Matricula = matricula;

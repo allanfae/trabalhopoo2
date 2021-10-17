@@ -10,4 +10,5 @@ Cadastro de clientes, <br>
 Cadastro de vendedores, <br>
 Aplicação de desconto, <br>
 Adição de frete para os produtos que fossem sair para delivery, <br>
+O programa irá adicionar um desconto em compras acima de mil reais, <br>
 Saida do relatório de vendas em formato txt.  

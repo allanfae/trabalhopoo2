@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-public class Delivery : Ientrega //Função basica e valor fixo de frete.
+public class Delivery : Ientrega
 {
 	public double calculaFrete()
 	{

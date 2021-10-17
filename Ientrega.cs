@@ -6,4 +6,3 @@ public interface Ientrega
 	double calculaFrete();
 
 }
-

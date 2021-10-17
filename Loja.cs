@@ -20,4 +20,4 @@ public class Loja
 		EstoqueLoja = estoque;
 		vendedores = new List<Vendedor>();
     }
-} 
+}
