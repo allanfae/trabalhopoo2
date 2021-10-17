@@ -15,11 +15,5 @@ public class RelatorioExcel : Iarquivo
 		}
 		return "O relatório de vendas foi salvo em arquivo";
 	}
-
-	public void printarRelatorio(Relatorio relatorio)//arquivo para programa
-	{
-
-	}
-
 }
 
