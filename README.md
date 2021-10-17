@@ -1,7 +1,7 @@
 # trabalhopoo2
 
 # Trabalho de Programação Orientada a Objetos II <br>
-### Integrantes: <br>
+### <center>Integrantes:<\center> <br>
 Allan Bruno Faé <br>
 Marcio Pinheiro Mendes <br>
 Rafael Antunes Costa
