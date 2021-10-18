@@ -1,0 +1,10 @@
+S - separamos as responsabilidades de cada classe. Exemplo: ao invés de gerar o relatório de vendas dentro da classe Venda, fizemos
+uma classe só para lidar com os relatórios.
+
+O - demonstramos a aplicação desse princípio na escolha do tipo de retirada. Se quisermos adicionar um novo tipo de retirada, não 
+precisamos modificar a classe para isso. Podemos criar uma subclasse que implementará as funcionalidades necessárias sem quebrar o
+código anterior.
+
+D - inversão da dependência utilizado na manipulação de arquivos. A classe de baixo nível (RelatórioExcel) faz toda a manipulação
+do arquivo enquanto a classe de alto nível (Relatório) usa essa interface. Se precisarmos mudar o tipo de arquivo de saída (para JSON, por
+exemplo), instanciamos uma nova classe de baixo nível que implementa essa interface, sem impactar na classe de alto nível.
